@@ -1,4 +1,4 @@
-
+# Lithium Community LIA React Native Example
 
 ### Getting started
 
