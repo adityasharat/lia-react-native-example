@@ -26,7 +26,8 @@
     1. `react-native start --config ../../../../rn-cli.config.js`
     1. `react-native run-android`
 
+> Both project directories should be at the same level in a directory. Do not rename the folders.
 
-> The calls will fail because the access token would have expired.
+> The API calls will fail because the access token would have expired.
 
 > Contact Dev-Triumph@lithium.com for more info.
