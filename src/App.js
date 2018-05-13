@@ -32,7 +32,7 @@ export default class App extends Component {
       tenantId: 'triumph',
       communityUrl: 'http://triumph.qa.lithium.com/',
       instanceId: 'qwerty1234567890',
-      token: 'EcuSinBcUAoWKoVTZDvEboz14shQ3aDqIV5ZNAKHAUA='
+      token: 'e7yG8xdYA5Bqpl9u5s+JjbEnDynhEeErQQ4OoURnf6M='
     };
 
     SdkManager.initialize(credentials, {});
@@ -42,15 +42,17 @@ export default class App extends Component {
     };
   }
 
+  error (response) {
+    ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
+  }
+
   getUserDetails = () => {
     try {
       this.state.sdk.client.user().then((response) => {
         this.setState({
           email: response.data.data.items[0].login
         });
-      }).catch((response) => {
-        ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
-      });
+      }).catch(this.error);
     } catch (e) {
       ToastAndroid.show(`aborted ${e}`, ToastAndroid.SHORT);
     }
@@ -58,6 +60,12 @@ export default class App extends Component {
 
   goToBrowsePage = () => {
     ToastAndroid.show('Woohoo!', ToastAndroid.SHORT);
+    this.state.sdk.client.categories().then((response) => {
+      const categories = response.data.data.items;
+      this.setState({
+        categories
+      });
+    }).catch(this.error);
   }
 
   render() {
@@ -86,6 +94,16 @@ export default class App extends Component {
                   onPress={this.goToBrowsePage}
                   disabled={this.state.email ? false : true}/>
         </TouchableOpacity>
+
+        <View>
+
+          {
+            (this.state.categories || []).map(category => {
+              return <Text key={category.id}>{category.title}</Text>
+            })
+          }
+
+        </View>
 
         <Text style={styles.instructions}>
           {instructions}
