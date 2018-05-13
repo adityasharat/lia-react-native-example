@@ -28,9 +28,9 @@ export default class App extends Component<Props> {
       clientId: '8p+/4twxtiR5760pfO1Ojvrgaa/0+fAD3tW/OpLlHQI=',
       clientSecret: 'Dw1K1tZPLPJhxLXgNPfuaXYzJ58wqMvExLXvrO+/+Hc=',
       tenantId: 'triumph',
-      communityUrl: 'https://triumph.qa.lithium.com/',
+      communityUrl: 'http://triumph.qa.lithium.com/',
       instanceId: 'qwerty1234567890',
-      token: 'poJTIWxJRk/gVU0ZyFiyPOTznuSwnLnBLXY1lSAD87A='
+      token: 'EcuSinBcUAoWKoVTZDvEboz14shQ3aDqIV5ZNAKHAUA='
     };
     this.state = {
       sdk: SDK.builder.build(credentials, {})
@@ -38,15 +38,15 @@ export default class App extends Component<Props> {
   }
 
   getUserDetails = () => {
-    ToastAndroid.show('start request', ToastAndroid.SHORT);
+    ToastAndroid.show('requesting', ToastAndroid.SHORT);
     try {
-      this.state.sdk.client.user().then((success) => {
+      this.state.sdk.client.user().then((response) => {
         ToastAndroid.show('success', ToastAndroid.SHORT);
-      }).catch((error) => {
-        ToastAndroid.show('error', ToastAndroid.SHORT);
+      }).catch((response) => {
+        ToastAndroid.show(`error ${response}`, ToastAndroid.SHORT);
       });
     } catch (e) {
-      ToastAndroid.show('abort', ToastAndroid.SHORT);
+      ToastAndroid.show(`aborted ${e}`, ToastAndroid.SHORT);
     }
   }
 
