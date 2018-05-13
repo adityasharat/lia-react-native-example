@@ -30,7 +30,7 @@ export default class App extends Component<Props> {
       tenantId: 'triumph',
       communityUrl: 'https://triumph.qa.lithium.com/',
       instanceId: 'qwerty1234567890',
-      token: 'athPJlEIDm5rhHrikpkmBtOGj2irLazmh5ytvUkfBgY='
+      token: 'poJTIWxJRk/gVU0ZyFiyPOTznuSwnLnBLXY1lSAD87A='
     };
     this.state = {
       sdk: SDK.builder.build(credentials, {})
@@ -40,15 +40,9 @@ export default class App extends Component<Props> {
   getUserDetails = () => {
     ToastAndroid.show('start request', ToastAndroid.SHORT);
     try {
-      this.state.sdk.client.get('/triumph/api/2.0/search', {
-        params: {
-          q: 'SELECT email, href, last_visit_time, login, id, view_href, rank, avatar from users WHERE id = \'self\''
-        }
-      })
-      .then((success) => {
+      this.state.sdk.client.user().then((success) => {
         ToastAndroid.show('success', ToastAndroid.SHORT);
-      })
-      .catch((error) => {
+      }).catch((error) => {
         ToastAndroid.show('error', ToastAndroid.SHORT);
       });
     } catch (e) {
