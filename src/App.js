@@ -8,6 +8,7 @@ import {
   Platform,
   StyleSheet,
   Text,
+  Button,
   View,
   TouchableOpacity,
   ToastAndroid
@@ -38,30 +39,50 @@ export default class App extends Component<Props> {
   }
 
   getUserDetails = () => {
-    ToastAndroid.show('requesting', ToastAndroid.SHORT);
     try {
       this.state.sdk.client.user().then((response) => {
-        ToastAndroid.show('success', ToastAndroid.SHORT);
+        this.setState({
+          email: response.data.data.items[0].login
+        });
       }).catch((response) => {
-        ToastAndroid.show(`error ${response}`, ToastAndroid.SHORT);
+        ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
       });
     } catch (e) {
       ToastAndroid.show(`aborted ${e}`, ToastAndroid.SHORT);
     }
   }
 
+  goToBrowsePage = () => {
+    ToastAndroid.show('Woohoo!', ToastAndroid.SHORT);
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to your community!
-        </Text>
-        <Text>
-          SDK version: {this.state.sdk.version}
-        </Text>
-        <TouchableOpacity onPress={this.getUserDetails}>
-          <Text>Get User Details</Text>
+
+        <View>
+          <Text style={styles.welcome}>
+            Welcome to your community!
+          </Text>
+          <Text style={styles.version}>
+            SDK version: {this.state.sdk.version}
+          </Text>
+        </View>
+
+        <TouchableOpacity>
+          <Button title="Login"
+                  onPress={this.getUserDetails}
+                  disabled={this.state.email ? true : false}/>
         </TouchableOpacity>
+
+        <Text style={styles.userDetails}>{ this.state.email ? `Logged in as ${this.state.email}` : '...' }</Text>
+
+        <TouchableOpacity>
+          <Button title="Browse"
+                  onPress={this.goToBrowsePage}
+                  disabled={this.state.email ? false : true}/>
+        </TouchableOpacity>
+
         <Text style={styles.instructions}>
           {instructions}
         </Text>
@@ -79,13 +100,25 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 20,
-    textAlign: 'center',
     margin: 12,
+    textAlign: 'center',
+  },
+  version: {
+    fontSize: 12,
+    textAlign: 'center',
+    marginBottom: 32,
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
     marginBottom: 8,
-    marginTop: 8
+    marginTop: 64,
   },
+  userDetails: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: '#111111',
+    marginBottom: 16,
+    marginTop: 16,
+  }
 });

@@ -23,10 +23,10 @@
     1. `npm link lia-sdk-core`
 1. connect an Android device with USB debugging enabled
 1. run he following the in the terminal
+    1. `react-native start --config ../../../../rn-cli.config.js`
     1. `react-native run-android`
-1. the build will complete and fail. Let it!
 1. stop the process and close the `metro-bundler` process (will open in a new terminal window)
-1. `react-native start --config ../../../../rn-cli.config.js`
+
 
 > The calls will fail because the access token would have expired.
 
