@@ -13,17 +13,18 @@ import {
   TouchableOpacity,
   ToastAndroid
 } from 'react-native';
-import * as SDK from 'lia-sdk-core';
+
+import SdkManager from './manager/SdkManager';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
   android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu',
 });
 
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component {
   constructor(props) {
     super(props);
+
     const credentials = {
       clientName: 'AndroidSdkDemoCross',
       clientId: '8p+/4twxtiR5760pfO1Ojvrgaa/0+fAD3tW/OpLlHQI=',
@@ -33,8 +34,11 @@ export default class App extends Component<Props> {
       instanceId: 'qwerty1234567890',
       token: 'EcuSinBcUAoWKoVTZDvEboz14shQ3aDqIV5ZNAKHAUA='
     };
+
+    SdkManager.initialize(credentials, {});
+
     this.state = {
-      sdk: SDK.builder.build(credentials, {})
+      sdk: SdkManager.get()
     };
   }
 
