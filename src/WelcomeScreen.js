@@ -38,19 +38,7 @@ export default class WelcomeScreen extends Component {
     ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
   }
 
-  getUserDetails = () => {
-    try {
-      this.state.sdk.client.user().then((response) => {
-        this.setState({
-          email: response.data.data.items[0].login
-        });
-      }).catch(this.error);
-    } catch (e) {
-      ToastAndroid.show(`aborted ${e}`, ToastAndroid.SHORT);
-    }
-  }
-
-  goToBrowsePage = () => {
+  login = () => {
     this.props.navigation.navigate('Login');
   }
 
@@ -68,28 +56,8 @@ export default class WelcomeScreen extends Component {
         </View>
 
         <TouchableOpacity>
-          <Button title="Login"
-                  onPress={this.getUserDetails}
-                  disabled={this.state.email ? true : false}/>
+          <Button title="Login" onPress={this.login} />
         </TouchableOpacity>
-
-        <Text style={styles.userDetails}>{ this.state.email ? `Logged in as ${this.state.email}` : '...' }</Text>
-
-        <TouchableOpacity>
-          <Button title="Browse"
-                  onPress={this.goToBrowsePage}
-                  disabled={this.state.email ? false : true}/>
-        </TouchableOpacity>
-
-        <View>
-
-          {
-            (this.state.categories || []).map(category => {
-              return <Text key={category.id}>{category.title}</Text>
-            })
-          }
-
-        </View>
 
         <Text style={styles.instructions}>
           {instructions}
