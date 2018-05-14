@@ -41,8 +41,7 @@ class App extends React.Component {
       clientSecret: 'Dw1K1tZPLPJhxLXgNPfuaXYzJ58wqMvExLXvrO+/+Hc=',
       tenantId: 'triumph',
       communityUrl: 'http://triumph.qa.lithium.com/',
-      instanceId: 'qwerty1234567890',
-      token: 'e7yG8xdYA5Bqpl9u5s+JjbEnDynhEeErQQ4OoURnf6M='
+      instanceId: 'qwerty1234567890'
     };
 
     SdkManager.initialize(credentials, {});
