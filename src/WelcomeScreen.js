@@ -29,19 +29,6 @@ export default class WelcomeScreen extends Component {
 
   constructor(props) {
     super(props);
-
-    const credentials = {
-      clientName: 'AndroidSdkDemoCross',
-      clientId: '8p+/4twxtiR5760pfO1Ojvrgaa/0+fAD3tW/OpLlHQI=',
-      clientSecret: 'Dw1K1tZPLPJhxLXgNPfuaXYzJ58wqMvExLXvrO+/+Hc=',
-      tenantId: 'triumph',
-      communityUrl: 'http://triumph.qa.lithium.com/',
-      instanceId: 'qwerty1234567890',
-      token: 'e7yG8xdYA5Bqpl9u5s+JjbEnDynhEeErQQ4OoURnf6M='
-    };
-
-    SdkManager.initialize(credentials, {});
-
     this.state = {
       sdk: SdkManager.get()
     };
@@ -64,13 +51,7 @@ export default class WelcomeScreen extends Component {
   }
 
   goToBrowsePage = () => {
-    ToastAndroid.show('Woohoo!', ToastAndroid.SHORT);
-    this.state.sdk.client.categories().then((response) => {
-      const categories = response.data.data.items;
-      this.setState({
-        categories
-      });
-    }).catch(this.error);
+    this.props.navigation.navigate('Login');
   }
 
   render() {
