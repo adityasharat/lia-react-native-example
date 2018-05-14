@@ -3,15 +3,26 @@ import React, { Component } from 'react';
 import { YellowBox, AppRegistry } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
-import LoginScreen from './src/LoginScreen';
+import WelcomeScreen from './src/WelcomeScreen';
 
 // TODO: remove this when react navigation fixes this issue!
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
 
 const RootStack = createStackNavigator({
-  Login: {
-    screen: LoginScreen
-  },
+  Welcome: {
+    screen: WelcomeScreen
+  }
+}, {
+  initialRouteName: 'Welcome',
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#733881',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  }
 });
 
 class App extends React.Component {
