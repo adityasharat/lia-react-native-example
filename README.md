@@ -27,7 +27,7 @@
     1. `npm link lia-sdk-core`
 1. connect an Android device with USB debugging enabled
 1. run the following the in the terminal
-    1. `react-native start --config ../../../../rn-cli.config.js`
+    1. `react-native start --config ../../../../rn-cli.config.js --reset-cache`
     1. `react-native run-android`
 
 > The API calls will fail because the `access token` would have expired.
