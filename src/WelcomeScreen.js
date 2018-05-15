@@ -39,7 +39,11 @@ export default class WelcomeScreen extends Component {
   }
 
   login = () => {
-    this.props.navigation.navigate('Login');
+    if (this.state.sdk.isLoggedIn()) {
+      this.props.navigation.navigate('Home');
+    } else {
+      this.props.navigation.navigate('Login');
+    }
   }
 
   render() {
