@@ -31,22 +31,20 @@ export default class LoginScreen extends Component {
   }
 
   login(code) {
+    this.isLoginInProgress = true;
     const sdk = SdkManager.get();
-    sdk.login(code).then(() => {
+    sdk.login(code).then((user) => {
+      ToastAndroid.show(`Logged in as ${user.login}`, ToastAndroid.SHORT);
       this.goToHomePage();
     }).catch(error => {
       ToastAndroid.show(`${error}`, ToastAndroid.LONG);
+    }).finally(() => {
+      this.isLoginInProgress = false;
     })
   }
 
   goToHomePage() {
-    try {
-      SdkManager.get().client.user().then((response) => {
-        ToastAndroid.show(`Logged in as ${response.data.data.items[0].login}`, ToastAndroid.SHORT);
-      }).catch(this.error);
-    } catch (e) {
-      ToastAndroid.show(`aborted ${e}`, ToastAndroid.SHORT);
-    }
+
   }
 
   interceptor(navigator) {
@@ -57,8 +55,10 @@ export default class LoginScreen extends Component {
           this.wvLogin.stopLoading();
         }
 
-        let url = Url.parse(navigator.url, true);
-        this.login(url.query.code);
+        if (!this.isLoginInProgress) {
+          let url = Url.parse(navigator.url, true);
+          this.login(url.query.code);
+        }
 
         return false;
     }
