@@ -7,6 +7,8 @@ import {
 
 import * as Url from 'url';
 
+import CategoryRow from './components/CategoryRow';
+
 import SdkManager from './manager/SdkManager';
 
 export default class LoginScreen extends Component {
@@ -24,12 +26,17 @@ export default class LoginScreen extends Component {
   }
 
   componentDidMount() {
-    this.sdk.client.categories().then((response) => {
-      const categories = response.data.data.items;
-
-      this.setState({
-        categories
+    Promise.all([
+      this.sdk.client.categories(),
+      this.sdk.client.boards()
+    ]).then(responses => {
+      const items = [];
+      responses.forEach((response) => {
+        response.data.data.items.forEach((item => items.push(item)))
       });
+      this.setState({
+        categories: items
+      })
     }).catch(this.error);
   }
 
@@ -40,7 +47,7 @@ export default class LoginScreen extends Component {
         <View style={styles.container}>
           {
             (this.state.categories || []).map(category => {
-              return <Text key={category.id}>{category.title}</Text>
+              return <CategoryRow key={category.id} category={category} sdk={this.sdk}/>
             })
            }
         </View>
