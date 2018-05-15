@@ -35,7 +35,7 @@ export default class LoginScreen extends Component {
     const sdk = SdkManager.get();
     sdk.login(code).then((user) => {
       ToastAndroid.show(`Logged in as ${user.login}`, ToastAndroid.SHORT);
-      this.goToHomePage();
+      this.home();
     }).catch(error => {
       ToastAndroid.show(`${error}`, ToastAndroid.LONG);
     }).finally(() => {
@@ -43,8 +43,8 @@ export default class LoginScreen extends Component {
     })
   }
 
-  goToHomePage() {
-
+  home() {
+    this.props.navigation.navigate('Home');
   }
 
   interceptor(navigator) {

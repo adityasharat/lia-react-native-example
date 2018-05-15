@@ -6,6 +6,7 @@ import SdkManager from './src/manager/SdkManager';
 
 import WelcomeScreen from './src/WelcomeScreen';
 import LoginScreen from './src/LoginScreen';
+import HomeScreen from './src/HomeScreen';
 
 // TODO: remove this when react navigation fixes this issue!
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -16,6 +17,9 @@ const RootStack = createStackNavigator({
   },
   Login: {
     screen: LoginScreen
+  },
+  Home: {
+    screen: HomeScreen
   }
 }, {
   initialRouteName: 'Welcome',
