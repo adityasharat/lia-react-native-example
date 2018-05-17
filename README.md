@@ -27,6 +27,9 @@
     1. `sudo npm install -g react-native-cli`
     1. `npm link lia-sdk-core`
     1. `npm install`
+
+#### Running the react application
+
 1. connect an Android device with USB debugging enabled
 1. run the following the in the terminal (in different terminal tabs)
     1. `react-native start --config ../../../../rn-cli.config.js --reset-cache`
