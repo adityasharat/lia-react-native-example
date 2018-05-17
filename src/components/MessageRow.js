@@ -9,16 +9,19 @@ import {
 export default function MessageRow(props) {
 
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Text style={styles.subject}>{props.message.subject}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  subject: {
-    fontSize: 16,
+  container: {
     padding: 12,
-    backgroundColor: '#efefef'
+    backgroundColor: '#efefef',
+    marginBottom: 4
+  },
+  subject: {
+    fontSize: 16
   }
 });

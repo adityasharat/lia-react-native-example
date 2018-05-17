@@ -9,16 +9,19 @@ import {
 export default function CategoryRow(props) {
 
   return (
-    <TouchableOpacity onPress={props.onPress}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Text style={styles.title}>{props.category.title}</Text>
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 16,
+  container: {
     padding: 12,
-    backgroundColor: '#efefef'
+    backgroundColor: '#efefef',
+    marginBottom: 4
+  },
+  title: {
+    fontSize: 16
   }
 });
