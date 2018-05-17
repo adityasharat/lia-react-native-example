@@ -16,9 +16,17 @@ export default class Message extends Component {
   constructor(props){
     super(props);
     this.state = {
-        realContentHeight: 200
+      realContentHeight: 100,
+      counter: 0
     }
-}
+  }
+
+  handleNavigationChange(navState) {
+    if (navState && navState.title) {
+      const realContentHeight = parseInt(navState.title, 10) || 0; // turn NaN to 0
+      this.setState({realContentHeight});
+    }
+  }
 
   render() {
     const props = this.props;
@@ -27,6 +35,8 @@ export default class Message extends Component {
     const body = message && MessageUtils.wrapInHtml(message.body).replace(/http:/ig, 'https:');
     const isMessage = props.isMessage;
     const shouldShowContent = typeof props.shouldShowContent === 'boolean' ? props.shouldShowContent : true;
+
+    const { realContentHeight } = this.state;
 
     if (!message) {
       return <Text>:(</Text>
@@ -42,12 +52,16 @@ export default class Message extends Component {
           </View>
           { isMessage && message.conversation.solved &&  <Text style={styles.resolved}>solved</Text> }
         </View>
-        <View style={{ flex: 1, alignSelf: 'stretch', height: 200 }}>
+        <View style={{height: Math.max(realContentHeight, 50)}}>
           <WebView ref={(v) => this.wvContent = v}
+                      scrollEnabled={false}
                       javaScriptEnabled={true}
                       domStorageEnabled={true}
                       source={{ html: body }}
-                      style={{ flex: 1 }}/>
+                      style={{ flex: 1 }}
+                      onNavigationStateChange={(data) => {
+                        this.handleNavigationChange(data);
+                      }}/>
         </View>
         <View style={styles.meta}>
           <Text style={styles.kudos}>{`${kudos} kudo${kudos === 1 ? '' : 's'}`}</Text>

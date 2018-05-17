@@ -1,18 +1,21 @@
 const script = `
-var wrapper = document.getElementById('height-wrapper');
-var i = 0;
-function updateHeight() {
-    document.title = wrapper.clientHeight;
-    window.location.hash = ++i;
+var i = 1;
+window.location.hash = i;
+var wrapper = document.createElement("div");
+wrapper.id = "height-wrapper";
+while (document.body.firstChild) {
+  wrapper.appendChild(document.body.firstChild);
 }
-updateHeight();
+document.body.appendChild(wrapper);
+function updateHeight() {
+  document.title = wrapper.clientHeight;
+  window.location.hash = ++i;
+}
 window.addEventListener('load', function() {
     updateHeight();
-    setTimeout(updateHeight, 1000);
 });
 window.addEventListener('resize', updateHeight);
-}());
-`
+`;
 
 export function wrapInHtml(content) {
   return `
@@ -30,9 +33,7 @@ export function wrapInHtml(content) {
       </style>
     </head>
     <body>
-      <div id="height-wrapper">
       ${content}
-      </div>
       <script>
       ${script}
       </script>
