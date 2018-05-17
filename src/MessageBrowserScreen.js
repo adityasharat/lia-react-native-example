@@ -6,7 +6,7 @@ import {
   ToastAndroid
 } from 'react-native';
 
-import CategoryRow from './components/CategoryRow';
+import MessageRow from './components/MessageRow';
 
 import SdkManager from './manager/SdkManager';
 
@@ -44,13 +44,19 @@ export default class LoginScreen extends Component {
     ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
   }
 
+  read () {
+    ToastAndroid.show('clicked', ToastAndroid.SHORT);
+  }
+
   render() {
     return (
       <View style={styles.flex}>
         <Text style={styles.title}>Messages</Text>
         <View style={styles.container}>
           {
-            this.state.messages.map(message => <Text key={message.id}>{message.subject}</Text>)
+            this.state.messages.map(message => {
+              return <MessageRow key={message.id} message={message} onPress={this.read.bind(this)}/>
+            })
           }
         </View>
       </View>
