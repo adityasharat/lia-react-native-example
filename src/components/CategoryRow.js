@@ -9,7 +9,7 @@ import {
 export default function CategoryRow(props) {
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={props.onPress}>
       <Text style={styles.title}>{props.category.title}</Text>
     </TouchableOpacity>
   );
