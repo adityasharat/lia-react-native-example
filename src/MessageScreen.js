@@ -6,6 +6,8 @@ import {
   ToastAndroid
 } from 'react-native';
 
+import Message from './components/Message';
+
 import SdkManager from './manager/SdkManager';
 
 export default class MessageScreen extends Component {
@@ -25,7 +27,19 @@ export default class MessageScreen extends Component {
   }
 
   componentDidMount() {
+    this.sdk.client.topic({
+      topic: this.props.navigation.getParam('id', null)
+    }).then(response => {
+      const message = response.data.data.items.shift();
+      const replies = [];
 
+      response.data.data.items.forEach((reply => replies.push(reply)));
+
+      this.setState({
+        message,
+        replies
+      })
+    }).catch(this.error);
   }
 
   error (response) {
@@ -33,8 +47,16 @@ export default class MessageScreen extends Component {
   }
 
   render() {
+    const message = this.state.message;
+    const replies = this.state.replies;
+
+    if (!message) {
+      return <Text>:(</Text>
+    }
+
     return (
       <View style={styles.container}>
+          <Message message={message} />
       </View>
     )
   }
