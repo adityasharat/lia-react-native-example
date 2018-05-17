@@ -52,7 +52,7 @@ class App extends React.Component {
       clientId: '8p+/4twxtiR5760pfO1Ojvrgaa/0+fAD3tW/OpLlHQI=',
       clientSecret: 'Dw1K1tZPLPJhxLXgNPfuaXYzJ58wqMvExLXvrO+/+Hc=',
       tenantId: 'triumph',
-      communityUrl: 'http://triumph.qa.lithium.com/',
+      communityUrl: 'https://triumph.qa.lithium.com/',
       instanceId: 'qwerty1234567890'
     };
 
