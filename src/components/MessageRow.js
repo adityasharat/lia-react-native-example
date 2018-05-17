@@ -48,7 +48,11 @@ const styles = StyleSheet.create({
   },
   timestamp: {
     color: '#aeaeae',
-    marginRight: 8
+    marginRight: 16
+  },
+  kudos: {
+    fontWeight: '800',
+    color: '#aa8855'
   },
   resolved: {
     flex: 0
