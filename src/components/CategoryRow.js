@@ -10,7 +10,7 @@ export default function CategoryRow(props) {
 
   return (
     <TouchableOpacity style={styles.container} onPress={props.onPress}>
-      <Text style={styles.title}>{props.category.title}</Text>
+      <Text style={styles.title} numberOfLines={1}>{props.category.title}</Text>
     </TouchableOpacity>
   );
 }
@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
     marginBottom: 4
   },
   title: {
-    fontSize: 16
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingRight: 16,
+    marginBottom: 4
   }
 });

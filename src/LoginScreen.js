@@ -34,7 +34,6 @@ export default class LoginScreen extends Component {
     this.isLoginInProgress = true;
     const sdk = SdkManager.get();
     sdk.login(code).then((user) => {
-      ToastAndroid.show(`Logged in as ${user.login}`, ToastAndroid.SHORT);
       this.home();
     }).catch(error => {
       ToastAndroid.show(`${error}`, ToastAndroid.LONG);

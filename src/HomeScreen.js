@@ -14,7 +14,7 @@ import SdkManager from './manager/SdkManager';
 export default class HomeScreen extends Component {
 
   static navigationOptions = {
-    title: 'Home'
+    title: 'Categories'
   };
 
   constructor(props) {
