@@ -12,6 +12,7 @@ import * as CommonUtils from '../utils/CommonUtils';
 export default function Message(props) {
   const message = props.message;
   const kudos = message && message.kudos.sum.weight;
+  const isMessage = props.isMessage;
 
   if (!message) {
     return <Text>:(</Text>
@@ -21,11 +22,11 @@ export default function Message(props) {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.author}>
-          <Image style={styles.messageAuthorAvatar}
+          <Image style={isMessage ? styles.messageAuthorAvatar : styles.replyAuthorAvatar}
                  source={{uri:message.author.avatar.profile}}/>
           <Text style={styles.authorName}>{message.author.login}</Text>
         </View>
-        { message.conversation.solved &&  <Text style={styles.resolved}>solved</Text> }
+        { isMessage && message.conversation.solved &&  <Text style={styles.resolved}>solved</Text> }
       </View>
       <View style={styles.main}>
 
@@ -43,16 +44,23 @@ const styles = StyleSheet.create({
     flex: 0,
     padding: 12,
     backgroundColor: '#fff',
-    marginBottom: 8
+    marginTop: 8
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 4
   },
   author: {
     flexDirection: 'row',
     flex: 1,
     alignItems: 'center'
+  },
+  replyAuthorAvatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 16
   },
   messageAuthorAvatar: {
     width: 64,
@@ -65,7 +73,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   main: {
-
+    marginBottom: 8
   },
   meta: {
     flexDirection: 'row',
