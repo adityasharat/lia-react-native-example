@@ -8,6 +8,7 @@ import WelcomeScreen from './src/WelcomeScreen';
 import LoginScreen from './src/LoginScreen';
 import HomeScreen from './src/HomeScreen';
 import MessageBrowserScreen from './src/MessageBrowserScreen';
+import MessageScreen from './src/MessageScreen';
 
 // TODO: remove this when react navigation fixes this issue!
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated', 'Module RCTImageLoader']);
@@ -24,6 +25,9 @@ const RootStack = createStackNavigator({
   },
   MessageBrowser: {
     screen: MessageBrowserScreen
+  },
+  Message: {
+    screen: MessageScreen
   }
 }, {
   initialRouteName: 'Welcome',

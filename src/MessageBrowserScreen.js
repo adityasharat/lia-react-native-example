@@ -10,7 +10,7 @@ import MessageRow from './components/MessageRow';
 
 import SdkManager from './manager/SdkManager';
 
-export default class LoginScreen extends Component {
+export default class MessageBrowserScreen extends Component {
 
   static navigationOptions = {
     title: 'Messages'
@@ -45,7 +45,7 @@ export default class LoginScreen extends Component {
   }
 
   read () {
-    ToastAndroid.show('clicked', ToastAndroid.SHORT);
+    this.props.navigation.navigate('Message');
   }
 
   render() {

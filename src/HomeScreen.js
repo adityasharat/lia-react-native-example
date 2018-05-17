@@ -10,7 +10,7 @@ import CategoryRow from './components/CategoryRow';
 
 import SdkManager from './manager/SdkManager';
 
-export default class LoginScreen extends Component {
+export default class HomeScreen extends Component {
 
   static navigationOptions = {
     title: 'Home'
@@ -44,7 +44,6 @@ export default class LoginScreen extends Component {
   }
 
   browse() {
-    ToastAndroid.show('here', ToastAndroid.SHORT);
     this.props.navigation.navigate('MessageBrowser');
   }
 
