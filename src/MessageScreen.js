@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  ScrollView,
   ToastAndroid
 } from 'react-native';
 
@@ -64,7 +65,7 @@ export default class MessageScreen extends Component {
     }
 
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Message message={message} isMessage={true}/>
         { accepted &&
           <View style={styles.section}>
@@ -85,7 +86,7 @@ export default class MessageScreen extends Component {
                 }
               </View>
         }
-      </View>
+      </ScrollView>
     )
   }
 }

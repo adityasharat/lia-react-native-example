@@ -17,12 +17,12 @@ export default function CategoryRow(props) {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 12,
+    padding: 16,
     backgroundColor: '#efefef',
     marginBottom: 4
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     paddingRight: 16,
     marginBottom: 4

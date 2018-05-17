@@ -4,44 +4,63 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image
+  Image,
+  WebView
 } from 'react-native';
 
 import * as CommonUtils from '../utils/CommonUtils';
+import * as MessageUtils from '../utils/MessageUtils';
 
-export default function Message(props) {
-  const message = props.message;
-  const kudos = message && message.kudos.sum.weight;
-  const isMessage = props.isMessage;
+export default class Message extends Component {
 
-  if (!message) {
-    return <Text>:(</Text>
-  }
+  constructor(props){
+    super(props);
+    this.state = {
+        realContentHeight: 200
+    }
+}
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.author}>
-          <Image style={isMessage ? styles.messageAuthorAvatar : styles.replyAuthorAvatar}
-                 source={{uri:message.author.avatar.profile}}/>
-          <Text style={styles.authorName}>{message.author.login}</Text>
+  render() {
+    const props = this.props;
+    const message = props.message;
+    const kudos = message && message.kudos.sum.weight;
+    const body = message && MessageUtils.wrapInHtml(message.body).replace(/http:/ig, 'https:');
+    const isMessage = props.isMessage;
+    const shouldShowContent = typeof props.shouldShowContent === 'boolean' ? props.shouldShowContent : true;
+
+    if (!message) {
+      return <Text>:(</Text>
+    }
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <View style={styles.author}>
+            <Image style={isMessage ? styles.messageAuthorAvatar : styles.replyAuthorAvatar}
+                  source={{uri:message.author.avatar.profile}}/>
+            <Text style={isMessage ? styles.authorName : styles.replyAuthorName}>{message.author.login}</Text>
+          </View>
+          { isMessage && message.conversation.solved &&  <Text style={styles.resolved}>solved</Text> }
         </View>
-        { isMessage && message.conversation.solved &&  <Text style={styles.resolved}>solved</Text> }
+        <View style={{ flex: 1, alignSelf: 'stretch', height: 200 }}>
+          <WebView ref={(v) => this.wvContent = v}
+                      javaScriptEnabled={true}
+                      domStorageEnabled={true}
+                      source={{ html: body }}
+                      style={{ flex: 1 }}/>
+        </View>
+        <View style={styles.meta}>
+          <Text style={styles.kudos}>{`${kudos} kudo${kudos === 1 ? '' : 's'}`}</Text>
+          <Text style={styles.timestamp}>{CommonUtils.timeSince(new Date(message.post_time))}</Text>
+        </View>
       </View>
-      <View style={styles.main}>
-
-      </View>
-      <View style={styles.meta}>
-        <Text style={styles.kudos}>{`${kudos} kudo${kudos === 1 ? '' : 's'}`}</Text>
-        <Text style={styles.timestamp}>{CommonUtils.timeSince(new Date(message.post_time))}</Text>
-      </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0,
+    flex: 1,
     padding: 12,
     backgroundColor: '#fff',
     marginTop: 8
@@ -72,8 +91,9 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 18,
   },
-  main: {
-    marginBottom: 8
+  replyAuthorName: {
+    fontWeight: '600',
+    fontSize: 14,
   },
   meta: {
     flexDirection: 'row',
