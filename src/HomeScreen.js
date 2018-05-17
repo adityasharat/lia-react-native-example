@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ToastAndroid
+  ToastAndroid,
+  FlatList
 } from 'react-native';
 
 import CategoryRow from './components/CategoryRow';
@@ -50,13 +51,13 @@ export default class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.flex}>
-        <Text style={styles.title}>Articles</Text>
         <View style={styles.container}>
-          {
-            (this.state.categories || []).map(category => {
-              return <CategoryRow key={category.id} category={category} sdk={this.sdk} onPress={this.browse.bind(this)}/>
-            })
-          }
+          <FlatList data={this.state.categories}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => {
+                      return <CategoryRow category={item} sdk={this.sdk} onPress={this.browse.bind(this)}/>
+                    }
+                  }/>
         </View>
       </View>
     )

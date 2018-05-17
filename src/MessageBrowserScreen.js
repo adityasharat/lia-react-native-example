@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  ToastAndroid
+  ToastAndroid,
+  FlatList
 } from 'react-native';
 
 import MessageRow from './components/MessageRow';
@@ -51,13 +52,13 @@ export default class MessageBrowserScreen extends Component {
   render() {
     return (
       <View style={styles.flex}>
-        <Text style={styles.title}>Messages</Text>
         <View style={styles.container}>
-          {
-            this.state.messages.map(message => {
-              return <MessageRow key={message.id} message={message} onPress={this.read.bind(this)}/>
-            })
-          }
+          <FlatList data={this.state.messages}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item }) => {
+                        return <MessageRow message={item} onPress={this.read.bind(this)} />
+                      }
+                    }/>
         </View>
       </View>
     )
