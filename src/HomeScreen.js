@@ -44,8 +44,11 @@ export default class HomeScreen extends Component {
     ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
   }
 
-  browse() {
-    this.props.navigation.navigate('MessageBrowser');
+  browse(board) {
+    this.props.navigation.navigate('MessageBrowser', {
+      id: board.id,
+      title: board.title
+    });
   }
 
   render() {
@@ -55,7 +58,8 @@ export default class HomeScreen extends Component {
           <FlatList data={this.state.categories}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => {
-                      return <CategoryRow category={item} sdk={this.sdk} onPress={this.browse.bind(this)}/>
+                      return <CategoryRow category={item} sdk={this.sdk}
+                                          onPress={() => this.browse(item)}/>
                     }
                   }/>
         </View>

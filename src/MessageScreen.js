@@ -10,8 +10,12 @@ import SdkManager from './manager/SdkManager';
 
 export default class MessageScreen extends Component {
 
-  static navigationOptions = {
-    title: 'Message'
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+
+    return {
+      title: params ? params.title : 'Messages',
+    }
   };
 
   constructor(props) {
@@ -30,17 +34,13 @@ export default class MessageScreen extends Component {
 
   render() {
     return (
-      <View style={styles.flex}>
-        <Text style={styles.title}>Message</Text>
+      <View style={styles.container}>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1
-  },
   container: {
     flex: 1
   },

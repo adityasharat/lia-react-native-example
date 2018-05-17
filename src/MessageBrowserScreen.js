@@ -13,8 +13,12 @@ import SdkManager from './manager/SdkManager';
 
 export default class MessageBrowserScreen extends Component {
 
-  static navigationOptions = {
-    title: 'Messages'
+  static navigationOptions = ({ navigation }) => {
+    const { params } = navigation.state;
+
+    return {
+      title: params ? params.title : 'Messages',
+    }
   };
 
   constructor(props) {
@@ -28,7 +32,7 @@ export default class MessageBrowserScreen extends Component {
   componentDidMount() {
     Promise.all([
       this.sdk.client.messages({
-        board: 'board:CrossDeviceDemo'
+        board: this.props.navigation.getParam('id', null)
       })
     ]).then(responses => {
       const messages = [];
@@ -45,30 +49,29 @@ export default class MessageBrowserScreen extends Component {
     ToastAndroid.show(`${response}`, ToastAndroid.SHORT);
   }
 
-  read () {
-    this.props.navigation.navigate('Message');
+  read (message) {
+    this.props.navigation.navigate('Message', {
+      id: message.id,
+      title: message.subject
+    });
   }
 
   render() {
     return (
-      <View style={styles.flex}>
-        <View style={styles.container}>
-          <FlatList data={this.state.messages}
-                    keyExtractor={item => item.id}
-                    renderItem={({ item }) => {
-                        return <MessageRow message={item} onPress={this.read.bind(this)} />
-                      }
-                    }/>
-        </View>
+      <View style={styles.container}>
+        <FlatList data={this.state.messages}
+                  keyExtractor={item => item.id}
+                  renderItem={({ item }) => {
+                      return <MessageRow message={item}
+                                          onPress={() => this.read(item)} />
+                    }
+                  }/>
       </View>
     )
   }
 }
 
 const styles = StyleSheet.create({
-  flex: {
-    flex: 1
-  },
   container: {
     flex: 1
   },

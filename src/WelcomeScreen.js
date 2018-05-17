@@ -5,7 +5,6 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
   StyleSheet,
   Text,
   Button,
@@ -15,11 +14,6 @@ import {
 } from 'react-native';
 
 import SdkManager from './manager/SdkManager';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\nCmd+D or shake for dev menu',
-  android: 'Double tap R on your keyboard to reload,\nShake or press menu button for dev menu',
-});
 
 export default class WelcomeScreen extends Component {
 
@@ -49,7 +43,6 @@ export default class WelcomeScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-
         <View>
           <Text style={styles.welcome}>
             Welcome to your community!
@@ -58,14 +51,9 @@ export default class WelcomeScreen extends Component {
             SDK version: {this.state.sdk.version}
           </Text>
         </View>
-
         <TouchableOpacity>
           <Button title="Login" onPress={this.login} />
         </TouchableOpacity>
-
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
       </View>
     );
   }
