@@ -8,7 +8,7 @@
 
 #### Build and publish the core SDK
 
-1. clone [lia-sdk-core-js](https://github.com/lithiumtech/lia-sdk-core-js)
+1. clone [lia-sdk-core-js](https://github.com/adityasharat/lia-sdk-js)
 1. navigate into `lia-sdk-core-js` directory
 1. run the following the in the terminal
     1. `npm install`
@@ -19,7 +19,7 @@
 
 1. [Install Android Studio](https://developer.android.com/studio/index.html)
 1. ensure sure build tools version is `27.0.3` is available.
-1. clone [lia-react-native-example](https://github.com/lithiumtech/lia-react-native-example)
+1. clone [lia-react-native-example](https://github.com/adityasharat/lia-react-native-example)
 1. navigate into `lia-react-native-example` directory
 1. run the following the in the terminal
     1. `brew install node` (this is required to be done only once)
